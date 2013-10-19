@@ -1,0 +1,284 @@
+clients
+------------------
+id
+client_id
+company code
+company name
+description
+client_type - smb/enterprise/branch/custom
+website
+login url
+email
+is_self_registered
+status - active, locked, deleted
+auto bill payment
+data partition id
+culture
+theme
+logo
+created by
+created on
+
+address
+state
+country
+zip
+phone
+
+admin_userid
+
+users
+-------
+id
+client_id
+first name
+last name
+middle name
+email
+created by
+created on
+
+address
+state
+country
+zip
+phone
+membership_id
+
+user_memberships
+---------------------
+id
+client_id
+username
+password
+last login date
+last login ip
+password failure count
+reset password on next login
+status - active, locked, deleted
+security question
+security answer
+
+
+roles
+-------
+id
+client_id
+name
+description
+privileges
+status - true/false
+created by
+created on
+
+privileges
+------------
+id
+client_id
+name
+description
+status - true/false
+
+user_roles
+-------------
+id
+user_id
+role_id
+created by
+created on
+
+subscription_plans
+---------------------
+id
+client_id
+name
+description
+is evaluation
+trial days
+price
+modules
+features
+usages
+
+app_modules
+----------------
+id
+client_id
+name
+description
+
+app_module_features
+--------------------------
+id
+client_id
+name
+description
+module_id
+
+app_module_usages
+-----------------------
+id
+client_id
+name
+description
+max usage limit
+allow over usage
+measurement unit
+
+client_subscription_plans
+-----------------------------
+id
+client_id
+plan id
+start date
+end date
+trial end date
+status
+
+
+client_settings
+------------------
+id
+client_id
+category
+key
+value
+status
+created by
+created on
+
+user_settings
+----------------
+id
+user id
+client_id
+category
+key
+value
+status
+created by
+created on
+
+
+activities
+---------
+id
+client_id
+name
+description
+category
+status
+template_id
+web hooks
+
+activity_audits
+----------------
+id
+client_id
+activity_id
+user id
+timestamp
+track_id
+track_data
+.template_id
+.content
+
+page_securitys
+-----------------
+id
+client_id
+page_url
+security rule
+status
+
+
+templates
+-------------
+id
+client_id
+name
+description
+category
+content
+
+client_api_keys
+-----------------
+id
+client_id
+apikey
+expiry date
+created on
+created by
+
+notifications
+---------------
+id
+client_id
+name
+description
+category
+type - email/system
+created by
+created on
+status
+
+notification_email_configurations
+----------------------------------------
+id
+client_id
+notification_id
+template_id
+from_email
+cc_emails
+bcc_emails
+smtp_server
+smtp_user
+smtp_pass
+smtp_port
+smtp_ssl
+attachment_path
+attachment_files
+
+notification_system_configurations
+----------------------------------------
+id
+client_id
+notification_id
+template_id
+target_user_id
+expiry date
+
+notification_templates
+----------------------------
+id
+client_id
+subject
+content
+
+notification_audits
+-----------------------
+id
+client_id
+notification_id
+type
+template_id
+target_user_id
+expiry date
+track_id
+from_email
+to_emails
+cc_emails
+bcc_emails
+smtp_server
+smtp_user
+smtp_pass
+smtp_port
+smtp_ssl
+attachment_path
+attachment_files
+subject
+content
+delivery status
+created by
+created on
+status - new/read/deleted
