@@ -19,19 +19,34 @@ def get_users(request):
 @users.put()
 def create_user(request):
     """Adds a new user."""
-    user = request.json_body
+    user_mem = request.json_body
+    user = user_mem.get('user',None)
+    membership = user_mem.get('membership',None)
     print user
+    print membership
     if user:
-        request.db['users'].insert(user)
+        try:
+            if membership:
+                request.db['user_memberships'].insert(membership)
+                user['membership_id'] = membership['_id']
+            request.db['users'].insert(user)
+        except Exception as e:
+            print e
+        
     return { 'status': 'created', 'user' : user }
     
 @users.post()
 def update_user(request):
     """Update user details."""
-    user = request.json_body
-    #print user
+    user_mem = request.json_body
+    user = user_mem.get('user',None)
+    membership = user_mem.get('membership',None)
+    print user
+    print membership
     if user:
         try:
+            if membership:
+                request.db['user_memberships'].save(membership)
             request.db['users'].save(user)
             user = request.db['users'].find_one(user['_id'])
         except Exception as e:
@@ -44,5 +59,9 @@ def del_user(request):
     data = request.json_body
     print data
     if data.id:
-        request.db['users'].remove(data.id)
-    return { 'status': 'deleted' }
+        user = request.db['users'].find_one(data.id)
+        if user:
+            request.db['user_memberships'].remove(user.membership_id)
+            request.db['users'].remove(data.id)
+            return { 'status': 'deleted' }
+    return { 'status': 'error', 'message' : 'user not found!' }

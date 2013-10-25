@@ -24,9 +24,27 @@ def cleanup_callback(request):
 
 from bson import json_util
 import simplejson as json
+import uuid
+import datetime
+
+def datetime_adapter(obj, request):
+    if hasattr(obj, 'isoformat'):
+        return obj.isoformat()
+    elif isinstance(obj, datetime):
+        return obj.isoformat()
+    return str(obj)
+
+def uuid_adapter(obj, request):
+    if isinstance(obj, uuid.UUID):
+        return str(obj)
+    else:
+        return None
 
 def db_json_renderer(helper):
-    return _JsonRenderer()
+    json_renderer = _JsonRenderer()
+    #json_renderer.add_adapter(datetime.datetime, datetime_adapter)
+    #json_renderer.add_adapter(uuid.UUID, uuid_adapter)
+    return json_renderer
 
 class _JsonRenderer(object):
     def __call__(self, data, context):
